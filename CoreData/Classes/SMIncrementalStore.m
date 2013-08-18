@@ -93,6 +93,7 @@ NSString *const SMServerTimeDiff = @"SMServerTimeDiff";
 
 BOOL SM_CORE_DATA_DEBUG = NO;
 BOOL SM_ALLOW_CACHE_RESET = NO;
+BOOL SM_FORCE_OFFLINE = NO;
 unsigned int SM_MAX_LOG_LENGTH = 10000;
 
 NSString* truncateOutputIfExceedsMaxLogLength(id objectToCheck) {
@@ -360,6 +361,10 @@ NSString* truncateOutputIfExceedsMaxLogLength(id objectToCheck) {
     if (SM_CORE_DATA_DEBUG) { DLog() }
     
     __block BOOL networkAvailable = NO;
+    
+    if (SM_FORCE_OFFLINE) {
+        return NO;
+    }
     
     dispatch_queue_t queue = [SMIncrementalStore networkAvailabilityQueue];
     dispatch_group_t group = [SMIncrementalStore networkAvailabilityGroup];
