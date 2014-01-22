@@ -27,7 +27,9 @@
 
 - (NSString *)SMSchema
 {
-    return [[self name] lowercaseString];
+    NSString *name = [self name];
+    NSString *firstChar = [[name substringToIndex:1] lowercaseString];
+    return [firstChar stringByAppendingFormat:@"%@", [name substringFromIndex:1]];
 }
 
 - (NSString *)primaryKeyField
